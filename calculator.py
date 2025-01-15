@@ -38,6 +38,8 @@ def calculate():
             result = first * second
         elif symbol == "/":
             result = first / second
+        if result.is_integer():
+            result = int(result)
         print(f"résultat de {first} {symbol} {second} = {result}")
 
     except ArithmeticError :
@@ -46,13 +48,42 @@ def calculate():
     except ValueError:
         print("erreur saisie")
 
-
-def menu():
+def history():
     pass
 
 
+def program_run():
+    try :
+        fonctions = menu()
+
+        while True :
+            if fonctions == "1":
+                calculate()
+
+            elif fonctions == "2":
+                history()
+            
+            elif fonctions == "3":
+                return
+
+    except KeyboardInterrupt :
+        program_run()
+
+def menu():
+    print("Menu de la calculatrice.\nQue voulez-vous faire ?")
+    print("Tapez 1 pour utiliser la calculatrice")
+    print("Tapez 2 pour afficher l'historique")
+    print("Tapez 3 pour quitter")
+    menu = input()
+    while menu not in ("1", "2", "3"):
+        print("Je n'ai pas compris votre choix.")
+        print("Tapez 1 pour utiliser la calculatrice")
+        print("Tapez 2 pour afficher l'historique")
+        print("Tapez 3 pour quitter")
+        menu = input()    
+    return menu
+
 def main():
-    while True :
-        calculate()
+    program_run()
 
 main()
