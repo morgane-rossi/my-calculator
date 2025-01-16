@@ -43,7 +43,9 @@ def calculate():
             result = int(result)
         else :
             result = f"{result:.3f}"
-        print(f"Result : {first} {symbol} {second} = {result}")
+        line = f"Result : {first} {symbol} {second} = {result}" 
+        print(line)
+        write_history(line)
 
     except ZeroDivisionError :
         print("Dividing by zero : forbidden")
@@ -57,25 +59,33 @@ def calculate():
     except AttributeError:
         print("Error")
 
-def history():
+
+def write_history(line):
+    with open("history.txt", "w", encoding="utf-8") as history_f :
+        history_f.write(line)
+
+
+def read_history():
     # voir toutes les opérations arithmétiques effectuées par l'utilisateur
     # possibilité d’effacer  cet  historique
     # possibilité de réinitialiser cet  historique
-    #f = open("history.txt", "w")
-    with open("history.txt") as f :
-        print(f.read())
+    print("\nHistorique de la calculatrice :\n")
+    with open("history.txt", "r", encoding="utf-8") as history_f :
+        print(history_f.read())
+    print()
 
 def program_run():
     try :
         fonctions = menu()
-
-        while True :
-            if fonctions == "1":
+        if fonctions == "2":
+            read_history()
+            program_run()
+        elif fonctions == "3":
+            return
+        elif fonctions == "1":
+            while True:
                 calculate()
-            elif fonctions == "2":
-                history()
-            elif fonctions == "3":
-                return
+
 
     except KeyboardInterrupt :
         program_run()
@@ -83,13 +93,13 @@ def program_run():
 def menu():
     print("Calculator menu\nWhat is your choice ?")
     print("Choice 1 : using the calculator")
-    print("Choice 2 : displaying histor")
+    print("Choice 2 : displaying history")
     print("Choice 3 : quit")
     menu = input()
     while menu not in ("1", "2", "3"):
         print("Sorry I didn't understand")
         print("Choice 1 : using the calculator")
-        print("Choice 2 : displaying histor")
+        print("Choice 2 : displaying history")
         print("Choice 3 : quit")
         menu = input()
     return menu
