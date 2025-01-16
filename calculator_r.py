@@ -1,3 +1,5 @@
+from pathlib import Path
+
 """
 Features 1 arithmetic operation : + ; - ; * ; /
 Between 2 numbers
@@ -43,7 +45,7 @@ def calculate():
             result = int(result)
         else :
             result = f"{result:.3f}"
-        line = f"Result : {first} {symbol} {second} = {result}" 
+        line = f"Result : {first} {symbol} {second} = {result}\n"
         print(line)
         write_history(line)
 
@@ -61,8 +63,18 @@ def calculate():
 
 
 def write_history(line):
-    with open("history.txt", "w", encoding="utf-8") as history_f :
-        history_f.write(line)
+    history_f = Path("./history.txt")
+
+    # si le fichier history.txt existe déjà
+    if history_f.is_file():
+        with open("history.txt", "a") as history_f:
+            history_f.write(line)
+
+    else :
+        # si le fichier history n'existe pas encore
+        print("il faut créér le fichier")
+        with open("history.txt", "w") as history_f :
+            history_f.write(line)
 
 
 def read_history():
@@ -70,9 +82,14 @@ def read_history():
     # possibilité d’effacer  cet  historique
     # possibilité de réinitialiser cet  historique
     print("\nHistorique de la calculatrice :\n")
-    with open("history.txt", "r", encoding="utf-8") as history_f :
-        print(history_f.read())
-    print()
+
+    history_f = Path("./history.txt")
+    if history_f.is_file():
+        with open("history.txt", "r", encoding="utf-8") as history_f :
+            print(history_f.read())
+        print()
+    else :
+        print("historique vide")
 
 def program_run():
     try :
@@ -85,7 +102,6 @@ def program_run():
         elif fonctions == "1":
             while True:
                 calculate()
-
 
     except KeyboardInterrupt :
         program_run()
