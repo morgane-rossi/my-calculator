@@ -7,6 +7,7 @@ The numbers are integers or floating numbers
 def enter_value() :
     number = input("veuillez rentrer un nombre :\n")
     try :
+        number = number.replace(",", ".")
         number = float(number)
         return number
     except ValueError:
@@ -42,11 +43,17 @@ def calculate():
             result = int(result)
         print(f"résultat de {first} {symbol} {second} = {result}")
 
-    except ArithmeticError :
+    except ZeroDivisionError :
         print("Impossible de diviser par zéro")
+
+    except ArithmeticError :
+        print("Calcul impossible")
 
     except ValueError:
         print("erreur saisie")
+    
+    except AttributeError:
+        print("erreur, impossible de calculer")
 
 def history():
     # voir toutes les opérations arithmétiques effectuées par l'utilisateur
@@ -62,10 +69,8 @@ def program_run():
         while True :
             if fonctions == "1":
                 calculate()
-
             elif fonctions == "2":
                 history()
-            
             elif fonctions == "3":
                 return
 
@@ -83,7 +88,7 @@ def menu():
         print("Tapez 1 pour utiliser la calculatrice")
         print("Tapez 2 pour afficher l'historique")
         print("Tapez 3 pour quitter")
-        menu = input()    
+        menu = input()
     return menu
 
 def main():
