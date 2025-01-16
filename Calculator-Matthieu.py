@@ -30,7 +30,6 @@ def calculate(number1,operator,number2):
                 return number1 - number2
             elif operator == "/":
                 if number2 == 0:
-                    print("make an effort please")
                     return None
                 return number1 / number2
             elif operator == "x" or operator == "*":
@@ -44,10 +43,15 @@ def calculate(number1,operator,number2):
 number1,operator,number2 = enter_number()
 result = calculate(number1,operator,number2)
 
-if isinstance(result, int) or result.is_integer():
-        print(f"{int(result)}")
-else:
-        print(f"{result:.2f}")
+try:
+    if isinstance(result, int) or result.is_integer():
+            print(f"{int(result)}")
+    else:
+            print(f"{result:.2f}")
+except AttributeError :
+    print("make an effort please")
+except ValueError : 
+    print("make an effort please")
 
 
 
