@@ -92,8 +92,14 @@ def write_history(line):
             with open("history.txt", "w") as history_f :
                 history_f.write(line)
 
-    except (FileNotFoundError, NameError, PermissionError, IsADirectoryError, IOError, UnicodeDecodeError, UnicodeEncodeError, OSError, OverflowError) as error :
+    except ( IOError, OverflowError) as error :
         print("Error while writing")
+
+    except (IsADirectoryError, FileNotFoundError, NameError, OSError, PermissionError) as error :
+            print("Error with file or OS error")
+    
+    except (UnicodeDecodeError, UnicodeEncodeError) as error :
+        print("Error with encoding or decoding")
 
     except Exception :
         print("Error while writing")
@@ -111,8 +117,14 @@ def read_history():
         else :
             print("Empty history\n")
 
-    except (FileNotFoundError, NameError, PermissionError, IsADirectoryError, IOError, UnicodeDecodeError, UnicodeEncodeError, OSError, OverflowError) as error :
-        print("Error while reading")
+    except ( IOError, OverflowError) as error :
+        print("Error while writing")
+
+    except (IsADirectoryError, FileNotFoundError, NameError, OSError, PermissionError) as error :
+            print("Error with file or OS error")
+    
+    except (UnicodeDecodeError, UnicodeEncodeError) as error :
+        print("Error with encoding or decoding")
 
     except Exception :
         print("Error while reading")
