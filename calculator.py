@@ -17,6 +17,12 @@ def enter_value() :
     """
     number = input("Please enter a number :\n")
     try :
+        while not number.replace(".", "").isnumeric():
+            print("veuillez entrer un nombre")
+            number = input()
+            if not number.replace(".", "").isnumeric():
+                print("Valeur erronée, veuillez recommencer")
+
         number = number.replace(",", ".")
         number = float(number)
         return number
